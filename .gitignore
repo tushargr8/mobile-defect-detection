@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Environments
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs and Editors
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Data (large raw files excluded from git, included in ZIP submission)
+data/*/raw/*
+data/*/processed/*
+
+# Heavy ensemble model binaries (>100MB) excluded from git
+models/**/ensemble_*.joblib
+
+# Logs
+*.log
+
+

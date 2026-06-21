@@ -1,0 +1,14 @@
+numpy
+pandas
+scikit-learn
+scipy
+xgboost
+lightgbm
+joblib
+matplotlib
+seaborn
+nltk
+requests
+beautifulsoup4
+openpyxl
+flask
