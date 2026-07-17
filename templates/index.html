@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Defect Classification Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --accent-color: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.45);
+            --success-color: #10b981;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-glow: rgba(255, 255, 255, 0.02);
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 2rem 4rem;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 850;
+            font-family: var(--font-display);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .logo-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        main {
+            flex-grow: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 4rem 3rem 4rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1.3fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 1024px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
+            main {
+                grid-template-columns: 1fr;
+                padding: 0 2rem 2rem 2rem;
+                gap: 2rem;
+            }
+        }
+
+        .panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .panel-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        select, input[type="text"], textarea {
+            width: 100%;
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        select:focus, input[type="text"]:focus, textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.15);
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        textarea {
+            height: 160px;
+            resize: vertical;
+        }
+
+        .presets {
+            margin-bottom: 1.5rem;
+        }
+
+        .preset-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.6rem;
+        }
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-preset {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-preset:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-color), #2563eb);
+            border: none;
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-display);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Result Panel Styling */
+        .result-placeholder {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .placeholder-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .result-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .result-content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .prediction-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .predicted-label-box {
+            max-width: 60%;
+        }
+
+        .predicted-label {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            word-wrap: break-word;
+            margin-top: 4px;
+        }
+
+        /* Gauge Styling */
+        .gauge-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-svg {
+            transform: rotate(-90deg);
+            width: 100px;
+            height: 100px;
+        }
+
+        .gauge-track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 8;
+        }
+
+        .gauge-fill {
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gauge-text {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Distribution Lists */
+        .distribution-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 8px;
+        }
+
+        .distribution-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .distribution-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .distribution-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .distribution-list::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
+        }
+
+        .dist-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .dist-name {
+            width: 40%;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-primary);
+        }
+
+        .dist-bar-container {
+            width: 45%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dist-bar-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 4px;
+            width: 0;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dist-value {
+            width: 15%;
+            text-align: right;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .dist-row.top-prediction .dist-bar-fill {
+            background: var(--success-color);
+        }
+        .dist-row.top-prediction .dist-name {
+            font-weight: 600;
+            color: var(--success-color);
+        }
+        .dist-row.top-prediction .dist-value {
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--glass-border);
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">D</div>
+            <div class="logo-title">DefectClassifier <span class="badge">TEST LAB</span></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Form / Input Panel -->
+        <section class="panel">
+            <h2 class="panel-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Issue Profiler
+            </h2>
+            
+            <div class="form-group">
+                <label for="datasetSelect">Target Model</label>
+                <select id="datasetSelect">
+                    <option value="dataset_1">Dataset 1: GitHub Issues (15 classes)</option>
+                    <option value="dataset_2">Dataset 2: Functional Bugs (3 classes)</option>
+                </select>
+            </div>
+
+            <!-- Presets Section -->
+            <div class="presets">
+                <p class="preset-title">Interactive Test Presets</p>
+                <div class="preset-buttons" id="presetsContainer">
+                    <!-- Presets will be dynamically populated -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="issueTitle">Issue Title</label>
+                <input type="text" id="issueTitle" placeholder="e.g., App crashes during startup on Android 12">
+            </div>
+
+            <div class="form-group">
+                <label for="issueBody">Issue Body / Stacktrace</label>
+                <textarea id="issueBody" placeholder="Enter error logs, steps to reproduce, or issue description..."></textarea>
+            </div>
+
+            <button type="button" class="btn-submit" id="btnTest">
+                <span class="spinner" id="btnSpinner"></span>
+                <span id="btnText">Classify Defect</span>
+            </button>
+        </section>
+
+        <!-- Prediction / Results Panel -->
+        <section class="panel" style="display: flex; flex-direction: column;">
+            <h2 class="panel-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                Prediction Outcomes
+            </h2>
+
+            <!-- Placeholder -->
+            <div class="result-placeholder" id="placeholder">
+                <div class="placeholder-icon">🤖</div>
+                <h3>Ready to Analyze</h3>
+                <p>Provide issue text on the left and click 'Classify Defect' to calculate predictions.</p>
+            </div>
+
+            <!-- Actual Content -->
+            <div class="result-content" id="resultContent">
+                <div class="prediction-hero">
+                    <div class="predicted-label-box">
+                        <label>PREDICTED CLASS</label>
+                        <div class="predicted-label" id="lblPredictedClass">-</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg class="gauge-svg">
+                            <circle class="gauge-track" cx="50" cy="50" r="40"></circle>
+                            <circle class="gauge-fill" id="gaugeFill" cx="50" cy="50" r="40"></circle>
+                        </svg>
+                        <div class="gauge-text" id="lblConfidence">-%</div>
+                    </div>
+                </div>
+
+                <div class="distribution-section-title">Probability Distribution</div>
+                <div class="distribution-list" id="distributionList">
+                    <!-- Probability rows populated dynamically -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Mobile Application Defect Classification Project. Engineered using Stacking Ensembles & NLP.</p>
+    </footer>
+
+    <script>
+        // Define Test Presets
+        const presets = {
+            dataset_1: [
+                {
+                    name: "Android Crash",
+                    title: "Fatal Exception: java.lang.NullPointerException in SettingsActivity",
+                    body: "App crashes immediately when entering settings. Logcat:\nFATAL EXCEPTION: main\njava.lang.NullPointerException: Attempt to invoke virtual method 'void android.widget.Button.setOnClickListener' on a null object reference at SettingsActivity.onCreate"
+                },
+                {
+                    name: "iOS Bluetooth Search",
+                    title: "CoreBluetooth state verification fails on iOS 15 background thread",
+                    body: "The Bluetooth manager initialization fails to trigger CBManagerStatePoweredOn when the application transitions to background mode on iPhones running iOS 15."
+                },
+                {
+                    name: "Documentation Request",
+                    title: "Add setup instructions for windows environment in README",
+                    body: "Please document how to set up the development environment on Windows machines. It would help new contributors install the package dependencies without getting name resolution warnings."
+                }
+            ],
+            dataset_2: [
+                {
+                    name: "Model Conversion Fail",
+                    title: "Failed to convert PyTorch model to CoreML format due to unsupported operator",
+                    body: "When exporting our model using coremltools, the exporter crashes with: 'RuntimeError: Unsupported ONNX operator: Add'. How can we register custom layers?"
+                },
+                {
+                    name: "DL Integration",
+                    title: "Cannot link LibTorch C++ libraries inside target Android build",
+                    body: "Compiling JNI modules with LibTorch fails. CMake outputs: 'Could not find torch package'. It compiles on macOS but fails on Linux builder."
+                },
+                {
+                    name: "Inference Error",
+                    title: "Model inference returns NaN values when batch size is greater than 1",
+                    body: "Running forward pass on batches greater than 1 yields completely blank outputs or NaNs. Individual item inference runs successfully with correct labels."
+                }
+            ]
+        };
+
+        const datasetSelect = document.getElementById("datasetSelect");
+        const presetsContainer = document.getElementById("presetsContainer");
+        const issueTitle = document.getElementById("issueTitle");
+        const issueBody = document.getElementById("issueBody");
+        const btnTest = document.getElementById("btnTest");
+        const btnSpinner = document.getElementById("btnSpinner");
+        const btnText = document.getElementById("btnText");
+        const placeholder = document.getElementById("placeholder");
+        const resultContent = document.getElementById("resultContent");
+        
+        const lblPredictedClass = document.getElementById("lblPredictedClass");
+        const lblConfidence = document.getElementById("lblConfidence");
+        const gaugeFill = document.getElementById("gaugeFill");
+        const distributionList = document.getElementById("distributionList");
+
+        // Load Presets when Dataset switches
+        function loadPresets() {
+            presetsContainer.innerHTML = "";
+            const currentDataset = datasetSelect.value;
+            const currentPresets = presets[currentDataset];
+
+            currentPresets.forEach(preset => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn-preset";
+                btn.textContent = preset.name;
+                btn.addEventListener("click", () => {
+                    issueTitle.value = preset.title;
+                    issueBody.value = preset.body;
+                });
+                presetsContainer.appendChild(btn);
+            });
+        }
+
+        datasetSelect.addEventListener("change", loadPresets);
+        // Initial load
+        loadPresets();
+
+        // Handle Test Classification
+        btnTest.addEventListener("click", async () => {
+            const title = issueTitle.value.trim();
+            const body = issueBody.value.trim();
+            const dataset = datasetSelect.value;
+
+            if (!title) {
+                alert("Please enter at least an issue title.");
+                return;
+            }
+
+            // Set loading state
+            btnTest.disabled = true;
+            btnSpinner.style.display = "inline-block";
+            btnText.textContent = "Classifying...";
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ title, body, dataset })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    alert(result.error || "Something went wrong.");
+                    return;
+                }
+
+                // Hide placeholder and show content
+                placeholder.style.display = "none";
+                resultContent.classList.add("show");
+
+                // Update predictions UI
+                lblPredictedClass.textContent = result.predicted_class;
+                
+                // Update Gauge
+                const confidence = result.confidence;
+                if (typeof confidence === "number") {
+                    const pct = Math.round(confidence * 100);
+                    lblConfidence.textContent = `${pct}%`;
+                    
+                    // Circular stroke length is 2 * PI * r = 2 * 3.14159 * 40 = 251.2
+                    const offset = 251.2 - (pct / 100) * 251.2;
+                    gaugeFill.style.strokeDashoffset = offset;
+                } else {
+                    lblConfidence.textContent = "N/A";
+                    gaugeFill.style.strokeDashoffset = 251.2;
+                }
+
+                // Clear and rebuild probability list
+                distributionList.innerHTML = "";
+                
+                // Sort probabilities descending
+                const probsSorted = Object.entries(result.probabilities)
+                    .sort((a, b) => b[1] - a[1]);
+
+                probsSorted.forEach(([clsName, probValue]) => {
+                    const pctValue = Math.round(probValue * 100);
+                    const isTop = clsName === result.predicted_class;
+
+                    const row = document.createElement("div");
+                    row.className = `dist-row ${isTop ? 'top-prediction' : ''}`;
+                    row.innerHTML = `
+                        <div class="dist-name" title="${clsName}">${clsName}</div>
+                        <div class="dist-bar-container">
+                            <div class="dist-bar-fill" style="width: ${pctValue}%"></div>
+                        </div>
+                        <div class="dist-value">${pctValue}%</div>
+                    `;
+                    distributionList.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error(err);
+                alert("Failed to reach classification server. Ensure python app.py is running.");
+            } finally {
+                btnTest.disabled = false;
+                btnSpinner.style.display = "none";
+                btnText.textContent = "Classify Defect";
+            }
+        });
+    </script>
+</body>
+</html>
