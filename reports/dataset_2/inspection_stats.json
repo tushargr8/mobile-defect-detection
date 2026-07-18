@@ -1,0 +1,41 @@
+{
+  "n_rows": 295,
+  "n_cols": 9,
+  "memory_mb": 0.9,
+  "dtypes": {
+    "data source": "str",
+    "framework": "str",
+    "url": "str",
+    "inner category": "str",
+    "leaf category": "str",
+    "fix pattern": "str",
+    "data souce": "str",
+    "title": "str",
+    "body": "str"
+  },
+  "missing_values": {
+    "data source": 38,
+    "data souce": 257
+  },
+  "missing_pct": {
+    "data source": 12.88,
+    "data souce": 87.12
+  },
+  "n_duplicates": 4,
+  "title_length_stats": {
+    "mean": 39.5,
+    "median": 38.0,
+    "min": 0,
+    "max": 736,
+    "std": 56.0
+  },
+  "body_length_stats": {
+    "mean": 2115.6,
+    "median": 665.0,
+    "min": 0,
+    "max": 55902,
+    "std": 4912.0
+  },
+  "title_empty_count": 121,
+  "body_empty_count": 121
+}

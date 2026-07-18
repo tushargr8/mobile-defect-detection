@@ -1,0 +1,21 @@
+{
+  "n_classes": 3,
+  "class_names": [
+    "[A] Model Conversion",
+    "[D] Inference",
+    "[B] DL Integration"
+  ],
+  "class_distribution": {
+    "[A] Model Conversion": 147,
+    "[D] Inference": 110,
+    "[B] DL Integration": 38
+  },
+  "class_percentages": {
+    "[A] Model Conversion": 49.83,
+    "[D] Inference": 37.29,
+    "[B] DL Integration": 12.88
+  },
+  "total_samples": 295,
+  "dropped_samples": 0,
+  "imbalance_ratio": 3.87
+}

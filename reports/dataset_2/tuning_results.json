@@ -1,0 +1,35 @@
+{
+  "XGBoost": {
+    "best_params": {
+      "subsample": 0.9,
+      "n_estimators": 300,
+      "min_child_weight": 1,
+      "max_depth": 10,
+      "learning_rate": 0.1,
+      "colsample_bytree": 0.7
+    },
+    "best_score": 0.7332,
+    "tuning_time_s": 10.39
+  },
+  "Logistic Regression": {
+    "best_params": {
+      "penalty": "l1",
+      "C": 0.5
+    },
+    "best_score": 0.7046,
+    "tuning_time_s": 5.7
+  },
+  "LightGBM": {
+    "best_params": {
+      "subsample": 1.0,
+      "num_leaves": 31,
+      "n_estimators": 200,
+      "min_child_samples": 5,
+      "max_depth": 7,
+      "learning_rate": 0.2,
+      "colsample_bytree": 1.0
+    },
+    "best_score": 0.6995,
+    "tuning_time_s": 26.92
+  }
+}

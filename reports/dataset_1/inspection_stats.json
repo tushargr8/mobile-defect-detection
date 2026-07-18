@@ -1,0 +1,44 @@
+{
+  "n_rows": 82455,
+  "n_cols": 11,
+  "memory_mb": 164.72,
+  "dtypes": {
+    "_id": "str",
+    "date": "str",
+    "created_at": "str",
+    "title": "str",
+    "url": "str",
+    "labels": "object",
+    "closed_at": "str",
+    "retrieved_at": "str",
+    "comments": "object",
+    "body": "str",
+    "HTML_url": "str"
+  },
+  "missing_values": {
+    "closed_at": 17862,
+    "body": 437
+  },
+  "missing_pct": {
+    "closed_at": 21.66,
+    "body": 0.53
+  },
+  "n_duplicates": 0,
+  "n_duplicate_ids": 0,
+  "title_length_stats": {
+    "mean": 46.0,
+    "median": 43.0,
+    "min": 1,
+    "max": 969,
+    "std": 24.4
+  },
+  "body_length_stats": {
+    "mean": 958.8,
+    "median": 286.0,
+    "min": 0,
+    "max": 262064,
+    "std": 4175.9
+  },
+  "title_empty_count": 0,
+  "body_empty_count": 8906
+}

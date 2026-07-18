@@ -1,0 +1,17 @@
+Model,Accuracy,Precision,Recall,F1 (weighted),F1 (macro),ROC-AUC
+Logistic Regression (Baseline),0.8519,0.8418,0.8519,0.8445,0.7631,0.9275
+LightGBM (Baseline),0.8519,0.8651,0.8519,0.8409,0.7919,0.9112
+Logistic Regression (Tuned),0.8148,0.7865,0.8148,0.7924,0.6736,0.901
+Stacking (Ensemble),0.8148,0.7282,0.8148,0.7681,0.5818,0.9398
+Soft Voting (Ensemble),0.8148,0.7282,0.8148,0.7681,0.5818,0.9266
+Stacking (Ensemble),0.8148,0.7282,0.8148,0.7681,0.5818,0.9398
+Soft Voting (Ensemble),0.8148,0.7282,0.8148,0.7681,0.5818,0.9266
+SVM (Baseline),0.7778,0.8413,0.7778,0.7501,0.6675,0.9577
+XGBoost (Baseline),0.7778,0.7071,0.7778,0.7368,0.5567,0.8914
+Hard Voting (Ensemble),0.7778,0.6877,0.7778,0.73,0.5478,
+LightGBM (Tuned),0.7778,0.6877,0.7778,0.73,0.5478,0.9412
+Hard Voting (Ensemble),0.7778,0.6877,0.7778,0.73,0.5478,N/A
+Naive Bayes (Baseline),0.7037,0.8112,0.7037,0.7236,0.685,0.895
+XGBoost (Tuned),0.7407,0.6639,0.7407,0.6993,0.5233,0.9145
+Random Forest (Baseline),0.6667,0.5566,0.6667,0.5872,0.4241,0.941
+Decision Tree (Baseline),0.5556,0.5769,0.5556,0.5526,0.4056,0.6627

@@ -1,0 +1,61 @@
+feature,idf_score,type
+version,2.617468735161343,most_common
+device,2.9629180659527052,most_common
+step,3.0213255718142946,most_common
+reproduce,3.0253511106336015,most_common
+expected,3.0807958440788252,most_common
+crash,3.091450528180848,most_common
+step reproduce,3.2416894729499623,most_common
+work,3.3088546103687686,most_common
+fix,3.3558483783129542,most_common
+open,3.4312773138507997,most_common
+user,3.4508378397052937,most_common
+problem,3.4636175663516924,most_common
+file,3.5367915751367875,most_common
+time,3.539293260267157,most_common
+new,3.5431542689246163,most_common
+java,3.572397840392386,most_common
+change,3.6155377951494283,most_common
+behavior,3.6174110395311088,most_common
+screen,3.6186618214327617,most_common
+code,3.61887043726746,most_common
+actual,3.6213772278009877,most_common
+show,3.650450893609309,most_common
+button,3.668485059715391,most_common
+log,3.6875206057181353,most_common
+data,3.7507043652577092,most_common
+image,3.7733341224705326,most_common
+add,3.78361321444518,most_common
+view,3.7982337202013277,most_common
+method,3.8004828777157678,most_common
+run,3.822233861671577,most_common
+affinity,10.707487875307201,most_rare
+qreader,10.707487875307201,most_rare
+qihoo360 replugin,10.707487875307201,most_rare
+program field,10.707487875307201,most_rare
+powermockjunit44runnerdelegateimpl,10.707487875307201,most_rare
+sun jna,10.707487875307201,most_rare
+sun ejb,10.707487875307201,most_rare
+pjsip,10.707487875307201,most_rare
+decodejob java,10.707487875307201,most_rare
+decodejob,10.707487875307201,most_rare
+dealer_app,10.707487875307201,most_rare
+de yaacc,10.707487875307201,most_rare
+de soundboardcrafter,10.707487875307201,most_rare
+date task,10.707487875307201,most_rare
+dataservice,10.707487875307201,most_rare
+staticoverhead byte,10.707487875307201,most_rare
+staticoverhead,10.707487875307201,most_rare
+static staticoverhead,10.707487875307201,most_rare
+activitytrigger activityresumetrigger,10.707487875307201,most_rare
+rtt,10.707487875307201,most_rare
+reading program,10.707487875307201,most_rare
+soundboardcrafter,10.707487875307201,most_rare
+smarthome,10.707487875307201,most_rare
+activityresumetrigger,10.707487875307201,most_rare
+sjbar,10.707487875307201,most_rare
+service concurrency,10.707487875307201,most_rare
+server thread,10.707487875307201,most_rare
+startinputorwindowgainedfocus,10.707487875307201,most_rare
+startinputinner mservice,10.707487875307201,most_rare
+common hash,10.707487875307201,most_rare

@@ -1,0 +1,4 @@
+Model,Accuracy,Precision,Recall,F1 (weighted),F1 (macro),ROC-AUC
+Soft Voting (Ensemble),0.8148,0.7282,0.8148,0.7681,0.5818,0.9266
+Stacking (Ensemble),0.8148,0.7282,0.8148,0.7681,0.5818,0.9398
+Hard Voting (Ensemble),0.7778,0.6877,0.7778,0.73,0.5478,N/A
